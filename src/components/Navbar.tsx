@@ -6,6 +6,8 @@ import SearchForm from './SearchForm';
 type Props={}
 
 export default function Navbar ({}:Props){
+    const urlAPI: string =
+    `https://api.openweathermap.org/data/2.5/forecast?q=Merida,mx&appid=$&cnt=20`;
     return (
         <nav className='shadow-sm sticky top-0 left-0 z-50 bg-[rgb(0,31,63)]'>
             <div className='h-[80px] w-full flex justify-between items-center max-w-7xl px-3 mx-auto'>
