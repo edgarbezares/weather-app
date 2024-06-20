@@ -5,11 +5,13 @@ import SearchForm from './SearchForm';
 import { format, parseISO } from 'date-fns';
 import { WeatherDetail } from '@/interfaces/weather';
 
-type Props = {
-  infoData: WeatherDetail | undefined;
+type NavbarProps = {
+        city: string;
+        onInputChange: (value: string) => void;
+        onSubmitSearch: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export default function Navbar({ infoData }: Props) {
+export default function Navbar({ city, onInputChange, onSubmitSearch }: NavbarProps) {
   return (
     <nav className='shadow-sm sticky top-0 left-0 z-50 bg-[rgb(0,31,63)]'>
       <div className='h-[80px] w-full flex justify-between items-center max-w-7xl px-3 mx-auto'>
@@ -20,7 +22,7 @@ export default function Navbar({ infoData }: Props) {
           </section>
         </div>
         <div>
-          <SearchForm></SearchForm>
+        <SearchForm value={city} onChange={(e) => onInputChange(e.target.value)} onSubmit={onSubmitSearch} />
         </div>
         </h2>
         <div className='flex items-center justify-center gap-2'>
