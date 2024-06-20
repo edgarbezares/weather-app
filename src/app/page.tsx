@@ -5,10 +5,11 @@ import useSWR from 'swr';
 import { WeatherData } from "@/interfaces/weather";
 import { format,parseISO } from "date-fns";
 import Container from "@/containers/Container";
+import WeatherIcon from "@/utils/WeatherIcons";
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export default function Home() {
-  const urlAPI: string = `https://api.openweathermap.org/data/2.5/forecast?q=merida,mx&appid=4dd5497406e30458fdedc2f90303b052`;
+  const urlAPI: string = `https://api.openweathermap.org/data/2.5/forecast?q=merida,mx&appid=4dd5497406e30458fdedc2f90303b052&cnt=12`;
 
   const undefinedTemp:number= 296.37;
 
@@ -34,17 +35,24 @@ export default function Home() {
         <section>
           <div>
             
-            <h2 className="text-4xl text-center flex-1 py-7">
+            <h2 className="text-4xl text-center flex-1 py-3">
               <p className=" text-white">{data?.city.name}</p>
             </h2>
           
-          <span className="flex text-5xl text-white justify-center ">
+          <span className="flex text-5xl text-white justify-center py-3">
               {convertDegrees(infoData?.main.temp ?? undefinedTemp)}°
               </span>
             <Container className="gap-10 px-6 items-center">
-              <div className="flex flex-col px-4">
-              
-              </div>
+            <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
+              {data?.list.map((d,i)=>(
+                <div key={i} className="flex flex-col justify-between gap-4
+                 items-center text-xs font-semibold min-w-[100px]">
+                  <p className="whitespace-nowrap text-white">{format(parseISO(d.dt_txt), "h:mm a")}</p>
+                  <WeatherIcon iconName={d.weather[0].icon}className="w-16 h-16"/>
+                  <p className="text-white text-xl">{convertDegrees(d?.main.temp ?? 0)}°</p>
+                </div>
+              ))}
+            </div>
             </Container>
           </div>
         </section>
