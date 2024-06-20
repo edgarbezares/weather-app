@@ -59,12 +59,44 @@ export default function Home() {
     }
   };
 
+  const handleGetLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          const response = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKEY}`
+          );
+          setCity(response.data.name);
+          setSearchCity(response.data.name);
+          setError('');
+        } catch (error) {
+          setError("Location not found");
+          setTimeout(() => {
+            setError('');
+          }, 3000);  
+        }
+      }, () => {
+        setError("Unable to retrieve location");
+        setTimeout(() => {
+          setError('');
+        }, 3000);
+      });
+    } else {
+      setError("Geolocation not supported by this browser");
+      setTimeout(() => {
+        setError('');
+      }, 3000);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4 bg-[rgb(43,74,99)] min-h-screen">
       <Navbar
         city={city}
         onInputChange={handleInputChange}
         onSubmitSearch={handleSubmitSearch}
+        onGetLocation={handleGetLocation} // Pasar la función a Navbar
       />
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
         {error && (
