@@ -34,14 +34,30 @@ export default function Home() {
       <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
         <section>
           <div>
-            
-            <h2 className="text-4xl text-center flex-1 py-3">
-              <p className=" text-white">{data?.city.name}</p>
-            </h2>
+          <h2 className="text-4xl text-center flex-1 py-3">
+            <p className="text-white">{data?.city.name}</p>
+          </h2>
           
-          <span className="flex text-5xl text-white justify-center py-3">
-              {convertDegrees(infoData?.main.temp ?? undefinedTemp)}°
-              </span>
+          <span className="flex text-6xl text-white justify-center py-3">
+            {convertDegrees(infoData?.main.temp ?? undefinedTemp)}°
+            </span>
+            
+            <div className="flex flex-col items-center text-white space-y-2">
+              <p className="text-base capitalize text-center">
+                <span>{infoData?.weather[0].description}</span>
+                </p>
+              <div className="flex justify-center space-x-4 text-sm py-2">
+                <p>
+                  <span>Min: </span>
+                  <span>{convertDegrees(infoData?.main.temp_min ?? 0)}°</span>
+                  </p>
+                  <p>
+                    <span>Max: </span>
+                    <span>{convertDegrees(infoData?.main.temp_max ?? 0)}°</span>
+                    </p>
+                </div>
+              </div>
+
             <Container className="gap-10 px-6 items-center">
             <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
               {data?.list.map((d,i)=>(
