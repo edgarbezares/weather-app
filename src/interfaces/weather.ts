@@ -54,4 +54,11 @@ export interface WeatherDetail {
       sunset: number;
     };
   }
-  
+  export interface WeatherDetails{
+    visibility: string;
+    humidity: string;
+    windSpeed: string;
+    airPressure: string;
+    sunrise: string;
+    sunset: string;
+}
