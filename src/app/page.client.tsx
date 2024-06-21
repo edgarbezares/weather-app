@@ -126,7 +126,7 @@ export default function Home({ initialData, initialCity }: HomeProps) {
 
                 <div className="flex items-center justify-between py-1">
                   <span className="text-6xl text-white">
-                    {convertDegrees(infoData?.main.temp ?? undefinedTemp)}° C
+                    {convertDegrees(infoData?.main.temp ?? undefinedTemp)}° 
                   </span>
                   {infoData?.weather[0].icon && (
                     <WeatherIcon
