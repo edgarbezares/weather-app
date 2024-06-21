@@ -7,7 +7,7 @@ type NavbarProps = {
   city: string;
   onInputChange: (value: string) => void;
   onSubmitSearch: (e: React.FormEvent<HTMLFormElement>) => void;
-  onGetLocation: () => void; // Nueva propiedad
+  onGetLocation: () => void;
 };
 
 export default function Navbar({ city, onInputChange, onSubmitSearch, onGetLocation }: NavbarProps) {
@@ -18,13 +18,17 @@ export default function Navbar({ city, onInputChange, onSubmitSearch, onGetLocat
           <div className='flex-1 flex justify-end'>
             <section
               className='flex gap-2 items-center text-white text-2xl hover:opacity-50 cursor-pointer'
-              onClick={onGetLocation} // Añadir el manejador de clics
+              onClick={onGetLocation}
             >
               <RiUserLocationFill />
             </section>
           </div>
           <div>
-            <SearchForm value={city} onChange={(e) => onInputChange(e.target.value)} onSubmit={onSubmitSearch} />
+            <SearchForm
+              value={city}
+              onChange={(e) => onInputChange(e.target.value)}
+              onSubmit={onSubmitSearch}
+            />
           </div>
         </h2>
         <div className='flex items-center justify-center gap-2'>
