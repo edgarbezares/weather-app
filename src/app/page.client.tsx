@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import axios from 'axios';
@@ -28,16 +29,21 @@ export default function Home({ initialData, initialCity }: HomeProps) {
   const [data, setData] = useState<WeatherData | null>(initialData);
   const [loading, setLoading] = useState(false);
 
+  const apiKEY = process.env.NEXT_PUBLIC_API_KEY;
+
   const handleInputChange = (value: string) => {
     setCity(value);
   };
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const handleSubmitSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (city.length > 0) {
       setLoading(true);
       try {
-        const response = await axios.get(`/api/weather?city=${city}`);
+        const response = await axios.get(
+          `${baseUrl}/api/weather?city=${city}`
+        );
         setSearchCity(city);
         setData(response.data);
         setError('');
@@ -56,18 +62,22 @@ export default function Home({ initialData, initialCity }: HomeProps) {
       }, 1000); 
     }
   };
-
+  
   const handleGetLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
         try {
-          const response = await axios.get(`/api/weather?lat=${latitude}&lon=${longitude}`);
+          const response = await axios.get(
+            `${baseUrl}/api/weather?lat=${latitude}&lon=${longitude}`
+          );
           const cityName = response.data.name;
           setCity(cityName);
           setSearchCity(cityName);
-
-          const forecastResponse = await axios.get(`/api/weather?city=${cityName}`);
+  
+          const forecastResponse = await axios.get(
+            `${baseUrl}/api/weather?city=${cityName}`
+          );
           setData(forecastResponse.data);
           setError('');
         } catch (error) {
