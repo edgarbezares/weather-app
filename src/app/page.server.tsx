@@ -1,4 +1,3 @@
-// src/app/page.server.tsx
 import React from 'react';
 import axios from 'axios';
 import { WeatherData } from '@/interfaces/weather';
@@ -10,12 +9,16 @@ type ServerProps = {
 };
 
 export default async function PageServer() {
-  const apiKEY = process.env.NEXT_PUBLIC_API_KEY;
   const city = 'Mexico City';
-  const urlAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKEY}&cnt=12`;
 
-  const response = await axios.get(urlAPI);
-  const initialData = response.data;
-
-  return <Home initialData={initialData} initialCity={city} />;
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/api/weather?city=${city}`
+    );
+    const initialData = response.data;
+    return <Home initialData={initialData} initialCity={city} />;
+  } catch (error) {
+    console.error('Failed to fetch data on server side:', error);
+    return <div>Failed to load weather data</div>;
+  }
 }
