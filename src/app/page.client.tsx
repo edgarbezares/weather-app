@@ -74,7 +74,6 @@ export default function Home({ initialData, initialCity }: HomeProps) {
           setCity(cityName);
           setSearchCity(cityName);
 
-          // Fetch forecast data based on the new city
           const forecastResponse = await axios.get(
             `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKEY}&cnt=12`
           );
@@ -131,7 +130,7 @@ export default function Home({ initialData, initialCity }: HomeProps) {
                   {infoData?.weather[0].icon && (
                     <WeatherIcon
                       iconName={infoData.weather[0].icon}
-                      style={{ width: "10rem", height: "10rem", marginRight: "8rem" }}
+                      style={{ width: "10rem", height: "10rem"}}
                     />
                   )}
                 </div>
@@ -153,7 +152,7 @@ export default function Home({ initialData, initialCity }: HomeProps) {
                         <span>{convertDegrees(infoData?.main.temp_max ?? 0)}°</span>
                       </p>
                     </div>
-                    <div className="flex space-x-2" style={{ marginRight: "8rem" }}>
+                    <div className="flex space-x-2">
                       <p>{format(parseISO(infoData?.dt_txt ?? ''), 'EEEE')}</p>
                       <p className="text-lg">- {format(parseISO(infoData?.dt_txt ?? ''), 'dd.MM.yy')}</p>
                     </div>

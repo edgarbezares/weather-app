@@ -11,7 +11,7 @@ type ServerProps = {
 
 export default async function PageServer() {
   const apiKEY = process.env.NEXT_PUBLIC_API_KEY;
-  const city = 'Monterrey';
+  const city = 'Mexico City';
   const urlAPI = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKEY}&cnt=12`;
 
   const response = await axios.get(urlAPI);
