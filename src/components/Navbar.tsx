@@ -31,10 +31,7 @@ export default function Navbar({ city, onInputChange, onSubmitSearch, onGetLocat
             />
           </div>
         </h2>
-        <div className='flex items-center justify-center gap-2'>
-          <h2 className='text-white text-3xl'>Weather</h2>
-          <TiWeatherPartlySunny className='text-white text-4xl mt-1' />
-        </div>
+        
       </div>
     </nav>
   );
